@@ -1,0 +1,78 @@
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependency Directories
+node_modules/
+jspm_packages/
+.pnp
+.pnp.js
+
+# TypeScript
+*.tsbuildinfo
+.next/
+dist/
+out/
+build/
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# Environment Variables (SENSITIVE)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+*.env.*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Vercel
+.vercel
+
+# Docker
+docker-compose.override.yml
+
+# Project Specific
+# Database Backups (Created by backup.sh)
+backups/
+*.gz
+*.archive
+
+# Database Dumps (Optional - keep generic dumps, ignore large specific ones if needed)
+# db_dump/ # Uncomment if you want to ignore the dump folder fully
+# backend/dump/ # Uncomment if you want to ignore this too
+
+# Ignore specific large files if any, or binary data
+*.bson
+*.metadata.json
+# Note: kept .json generally, but if metadata is large/generated, might ignore.
+# Since the 'dump' folders seem to contain BSON files which are binary, it's often good to ignore them 
+# found in backups, but maybe you want the initial seeds committed. 
+# I will ignore *.bson in the root to be safe against committing large DB dumps accidentally, 
+# unless they are meant for seeding. 
+# Given the user has a specific 'db_dump' folder committed, I will allow that folder but ignore new temp dumps.
+# actually, the user has 'db_dump' in the file list means it is committed. 
+# I will NOT ignore 'db_dump' folder, but everything else looks good.
