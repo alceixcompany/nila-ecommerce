@@ -43,33 +43,38 @@ router.post('/image', protect, authorize('admin'), upload.single('image'), async
       bucketName: 'uploads',
     });
 
-    // Process image with Sharp - compress and optimize
-    let processedImage;
-    const originalFormat = req.file.mimetype.split('/')[1];
-    let contentType = 'image/jpeg';
-    let extension = 'jpg';
+    // Process image with Sharp - temporarily bypassed for debugging
+    // let processedImage;
+    // const originalFormat = req.file.mimetype.split('/')[1];
+    // let contentType = 'image/jpeg';
+    // let extension = 'jpg';
 
-    if (originalFormat === 'png') {
-      // For PNG, keep as PNG but optimize
-      contentType = 'image/png';
-      extension = 'png';
-      processedImage = await sharp(req.file.buffer)
-        .resize(1200, 1200, {
-          fit: 'inside',
-          withoutEnlargement: true,
-        })
-        .png({ quality: 85, compressionLevel: 9 })
-        .toBuffer();
-    } else {
-      // For other formats, convert to JPEG
-      processedImage = await sharp(req.file.buffer)
-        .resize(1200, 1200, {
-          fit: 'inside',
-          withoutEnlargement: true,
-        })
-        .jpeg({ quality: 85, progressive: true, mozjpeg: true })
-        .toBuffer();
-    }
+    // Directly use the buffer
+    const processedImage = req.file.buffer;
+    const contentType = req.file.mimetype;
+    const extension = req.file.mimetype.split('/')[1] || 'jpg';
+
+    // if (originalFormat === 'png') {
+    //   // For PNG, keep as PNG but optimize
+    //   contentType = 'image/png';
+    //   extension = 'png';
+    //   processedImage = await sharp(req.file.buffer)
+    //     .resize(1200, 1200, {
+    //       fit: 'inside',
+    //       withoutEnlargement: true,
+    //     })
+    //     .png({ quality: 85, compressionLevel: 9 })
+    //     .toBuffer();
+    // } else {
+    //   // For other formats, convert to JPEG
+    //   processedImage = await sharp(req.file.buffer)
+    //     .resize(1200, 1200, {
+    //       fit: 'inside',
+    //       withoutEnlargement: true,
+    //     })
+    //     .jpeg({ quality: 85, progressive: true, mozjpeg: true })
+    //     .toBuffer();
+    // }
 
     // Generate unique filename
     const filename = `${Date.now()}-${Math.round(Math.random() * 1e9)}.${extension}`;
