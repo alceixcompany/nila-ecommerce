@@ -43,107 +43,125 @@ const uploadMiddleware = (req, res, next) => {
 // @route   POST /api/upload/image
 // @desc    Upload and compress image to GridFS
 // @access  Private/Admin
-router.post('/image', protect, authorize('admin'), uploadMiddleware, async (req, res) => {
-  console.log('Upload image request received');
-  try {
-    if (!req.file) {
-      console.log('No file in request (after multer)');
-      return res.status(400).json({
-        success: false,
-        message: 'No image file provided',
+router.post('/image',
+  (req, res, next) => {
+    console.log('DEBUG: Upload request hit the server endpoint');
+    console.log('Headers:', JSON.stringify(req.headers));
+    next();
+  },
+  protect,
+  (req, res, next) => {
+    console.log('DEBUG: Passed protect middleware');
+    console.log('User:', req.user._id);
+    next();
+  },
+  authorize('admin'),
+  (req, res, next) => {
+    console.log('DEBUG: Passed authorize middleware');
+    next();
+  },
+  uploadMiddleware,
+  async (req, res) => {
+    console.log('DEBUG: Inside async handler');
+    try {
+      if (!req.file) {
+        console.log('No file in request (after multer)');
+        return res.status(400).json({
+          success: false,
+          message: 'No image file provided',
+        });
+      }
+
+      // Check DB connection
+      if (!mongoose.connection.db) {
+        console.error('Database connection not established');
+        return res.status(500).json({
+          success: false,
+          message: 'Database connection not ready',
+        });
+      }
+
+      // Initialize GridFS bucket
+      console.log('Initializing GridFS bucket');
+      const bucket = new GridFSBucket(mongoose.connection.db, {
+        bucketName: 'uploads',
       });
-    }
 
-    // Check DB connection
-    if (!mongoose.connection.db) {
-      console.error('Database connection not established');
-      return res.status(500).json({
-        success: false,
-        message: 'Database connection not ready',
-      });
-    }
+      // Process image with Sharp - temporarily bypassed for debugging
+      // let processedImage;
+      // const originalFormat = req.file.mimetype.split('/')[1];
+      // let contentType = 'image/jpeg';
+      // let extension = 'jpg';
 
-    // Initialize GridFS bucket
-    console.log('Initializing GridFS bucket');
-    const bucket = new GridFSBucket(mongoose.connection.db, {
-      bucketName: 'uploads',
-    });
+      // Directly use the buffer
+      const processedImage = req.file.buffer;
+      const contentType = req.file.mimetype;
+      const extension = req.file.mimetype.split('/')[1] || 'jpg';
 
-    // Process image with Sharp - temporarily bypassed for debugging
-    // let processedImage;
-    // const originalFormat = req.file.mimetype.split('/')[1];
-    // let contentType = 'image/jpeg';
-    // let extension = 'jpg';
+      // if (originalFormat === 'png') {
+      //   // For PNG, keep as PNG but optimize
+      //   contentType = 'image/png';
+      //   extension = 'png';
+      //   processedImage = await sharp(req.file.buffer)
+      //     .resize(1200, 1200, {
+      //       fit: 'inside',
+      //       withoutEnlargement: true,
+      //     })
+      //     .png({ quality: 85, compressionLevel: 9 })
+      //     .toBuffer();
+      // } else {
+      //   // For other formats, convert to JPEG
+      //   processedImage = await sharp(req.file.buffer)
+      //     .resize(1200, 1200, {
+      //       fit: 'inside',
+      //       withoutEnlargement: true,
+      //     })
+      //     .jpeg({ quality: 85, progressive: true, mozjpeg: true })
+      //     .toBuffer();
+      // }
 
-    // Directly use the buffer
-    const processedImage = req.file.buffer;
-    const contentType = req.file.mimetype;
-    const extension = req.file.mimetype.split('/')[1] || 'jpg';
+      // Generate unique filename
+      const filename = `${Date.now()}-${Math.round(Math.random() * 1e9)}.${extension}`;
 
-    // if (originalFormat === 'png') {
-    //   // For PNG, keep as PNG but optimize
-    //   contentType = 'image/png';
-    //   extension = 'png';
-    //   processedImage = await sharp(req.file.buffer)
-    //     .resize(1200, 1200, {
-    //       fit: 'inside',
-    //       withoutEnlargement: true,
-    //     })
-    //     .png({ quality: 85, compressionLevel: 9 })
-    //     .toBuffer();
-    // } else {
-    //   // For other formats, convert to JPEG
-    //   processedImage = await sharp(req.file.buffer)
-    //     .resize(1200, 1200, {
-    //       fit: 'inside',
-    //       withoutEnlargement: true,
-    //     })
-    //     .jpeg({ quality: 85, progressive: true, mozjpeg: true })
-    //     .toBuffer();
-    // }
-
-    // Generate unique filename
-    const filename = `${Date.now()}-${Math.round(Math.random() * 1e9)}.${extension}`;
-
-    // Create upload stream
-    const uploadStream = bucket.openUploadStream(filename, {
-      contentType: contentType,
-      metadata: {
-        originalName: req.file.originalname,
-        originalSize: req.file.size,
-        uploadedBy: req.user._id,
-        uploadedAt: new Date(),
-      },
-    });
-
-    // Write processed image to GridFS
-    uploadStream.end(processedImage);
-
-    uploadStream.on('finish', () => {
-      res.status(200).json({
-        success: true,
-        message: 'Image uploaded successfully',
-        data: {
-          fileId: uploadStream.id.toString(),
-          filename: filename,
-          url: `/api/upload/image/${uploadStream.id}`,
+      // Create upload stream
+      const uploadStream = bucket.openUploadStream(filename, {
+        contentType: contentType,
+        metadata: {
+          originalName: req.file.originalname,
+          originalSize: req.file.size,
+          uploadedBy: req.user._id,
+          uploadedAt: new Date(),
         },
       });
-    });
 
-    uploadStream.on('error', (error) => {
+      // Write processed image to GridFS
+      uploadStream.end(processedImage);
+
+      uploadStream.on('finish', () => {
+        res.status(200).json({
+          success: true,
+          message: 'Image uploaded successfully',
+          data: {
+            fileId: uploadStream.id.toString(),
+            filename: filename,
+            url: `/api/upload/image/${uploadStream.id}`,
+          },
+        });
+      });
+
+      uploadStream.on('error', (error) => {
+        res.status(500).json({
+          success: false,
+          message: error.message || 'Failed to upload image',
+        });
+      });
+    } catch (error) {
       res.status(500).json({
         success: false,
-        message: error.message || 'Failed to upload image',
+        message: error.message || 'Server error',
       });
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message || 'Server error',
-    });
-  }
-});
+    }
+  });
 
 // @route   GET /api/upload/image/:id
 // @desc    Get image from GridFS
