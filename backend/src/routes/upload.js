@@ -43,40 +43,13 @@ router.post('/image', protect, authorize('admin'), upload.single('image'), async
       bucketName: 'uploads',
     });
 
-    // Process image with Sharp - compress and optimize
-    let processedImage;
-    const originalFormat = req.file.mimetype.split('/')[1];
-    let contentType = 'image/jpeg';
-    let extension = 'jpg';
-    
-    if (originalFormat === 'png') {
-      // For PNG, keep as PNG but optimize
-      contentType = 'image/png';
-      extension = 'png';
-      processedImage = await sharp(req.file.buffer)
-        .resize(1200, 1200, {
-          fit: 'inside',
-          withoutEnlargement: true,
-        })
-        .png({ quality: 85, compressionLevel: 9 })
-        .toBuffer();
-    } else {
-      // For other formats, convert to JPEG
-      processedImage = await sharp(req.file.buffer)
-        .resize(1200, 1200, {
-          fit: 'inside',
-          withoutEnlargement: true,
-        })
-        .jpeg({ quality: 85, progressive: true, mozjpeg: true })
-        .toBuffer();
-    }
-
     // Generate unique filename
+    const extension = req.file.mimetype.split('/')[1] || 'jpg';
     const filename = `${Date.now()}-${Math.round(Math.random() * 1e9)}.${extension}`;
 
     // Create upload stream
     const uploadStream = bucket.openUploadStream(filename, {
-      contentType: contentType,
+      contentType: req.file.mimetype,
       metadata: {
         originalName: req.file.originalname,
         originalSize: req.file.size,
@@ -85,8 +58,8 @@ router.post('/image', protect, authorize('admin'), upload.single('image'), async
       },
     });
 
-    // Write processed image to GridFS
-    uploadStream.end(processedImage);
+    // Write image buffer directly to GridFS (no Sharp processing)
+    uploadStream.end(req.file.buffer);
 
     uploadStream.on('finish', () => {
       res.status(200).json({
@@ -101,12 +74,14 @@ router.post('/image', protect, authorize('admin'), upload.single('image'), async
     });
 
     uploadStream.on('error', (error) => {
+      console.error('Upload stream error:', error);
       res.status(500).json({
         success: false,
         message: error.message || 'Failed to upload image',
       });
     });
   } catch (error) {
+    console.error('Upload error:', error);
     res.status(500).json({
       success: false,
       message: error.message || 'Server error',
