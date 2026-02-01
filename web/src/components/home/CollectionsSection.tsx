@@ -47,7 +47,7 @@ export default function CollectionsSection() {
                 {/* Categories Scrollable Container */}
                 <div className="relative group/scroll">
                     <div className="flex gap-4 overflow-x-auto pb-8 pt-4 custom-scrollbar scroll-smooth snap-x snap-mandatory">
-                        {categories.map((category, index) => {
+                        {categories.filter(cat => cat && cat._id).map((category, index) => {
                             const displayImage = category.image || fallbackImages[category.name] || fallbackImages.default;
 
                             return (
