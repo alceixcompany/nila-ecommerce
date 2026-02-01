@@ -49,11 +49,9 @@ export default function ImageUpload({ value, onChange, onRemove, label, required
       formData.append('image', file);
 
       // Upload image
-      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
       const response = await api.post('/upload/image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          ...(token && { Authorization: `Bearer ${token}` }),
         },
       });
 
