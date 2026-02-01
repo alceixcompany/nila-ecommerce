@@ -96,38 +96,44 @@ router.post('/image',
         bucketName: 'uploads',
       });
 
-      // Process image with Sharp - temporarily bypassed for debugging
-      // let processedImage;
-      // const originalFormat = req.file.mimetype.split('/')[1];
-      // let contentType = 'image/jpeg';
-      // let extension = 'jpg';
+      // Process image with Sharp
+      let processedImage;
+      const originalFormat = req.file.mimetype.split('/')[1];
+      let contentType = 'image/jpeg';
+      let extension = 'jpg';
 
-      // Directly use the buffer
-      const processedImage = req.file.buffer;
-      const contentType = req.file.mimetype;
-      const extension = req.file.mimetype.split('/')[1] || 'jpg';
+      console.log('Processing image with Sharp...');
 
-      // if (originalFormat === 'png') {
-      //   // For PNG, keep as PNG but optimize
-      //   contentType = 'image/png';
-      //   extension = 'png';
-      //   processedImage = await sharp(req.file.buffer)
-      //     .resize(1200, 1200, {
-      //       fit: 'inside',
-      //       withoutEnlargement: true,
-      //     })
-      //     .png({ quality: 85, compressionLevel: 9 })
-      //     .toBuffer();
-      // } else {
-      //   // For other formats, convert to JPEG
-      //   processedImage = await sharp(req.file.buffer)
-      //     .resize(1200, 1200, {
-      //       fit: 'inside',
-      //       withoutEnlargement: true,
-      //     })
-      //     .jpeg({ quality: 85, progressive: true, mozjpeg: true })
-      //     .toBuffer();
-      // }
+      try {
+        if (originalFormat === 'png') {
+          // For PNG, keep as PNG but optimize
+          contentType = 'image/png';
+          extension = 'png';
+          processedImage = await sharp(req.file.buffer)
+            .resize(1200, 1200, {
+              fit: 'inside',
+              withoutEnlargement: true,
+            })
+            .png({ quality: 85, compressionLevel: 9 })
+            .toBuffer();
+        } else {
+          // For other formats, convert to JPEG
+          processedImage = await sharp(req.file.buffer)
+            .resize(1200, 1200, {
+              fit: 'inside',
+              withoutEnlargement: true,
+            })
+            .jpeg({ quality: 85, progressive: true, mozjpeg: true })
+            .toBuffer();
+        }
+        console.log('Image processed successfully');
+      } catch (sharpError) {
+        console.error('Sharp processing error:', sharpError);
+        // Fallback to original buffer if processing fails
+        processedImage = req.file.buffer;
+        contentType = req.file.mimetype;
+        extension = req.file.mimetype.split('/')[1] || 'jpg';
+      }
 
       // Generate unique filename
       const filename = `${Date.now()}-${Math.round(Math.random() * 1e9)}.${extension}`;
