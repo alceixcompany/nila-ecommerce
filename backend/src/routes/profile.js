@@ -26,6 +26,15 @@ router.get('/', protect, async (req, res) => {
       });
     }
 
+    // Filter out null products from cart and wishlist (in case products were deleted)
+    user.cart = user.cart.filter(item => item.product !== null);
+    user.wishlist = user.wishlist.filter(item => item !== null);
+
+    // Save if any items were removed
+    if (user.isModified('cart') || user.isModified('wishlist')) {
+      await user.save();
+    }
+
     res.json({
       success: true,
       data: user,
