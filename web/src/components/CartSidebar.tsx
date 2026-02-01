@@ -64,7 +64,7 @@ export default function CartSidebar() {
                 </button>
               </div>
             ) : (
-              items.map(item => (
+              items.filter(item => item && item.id).map(item => (
                 <div key={item.id} className="flex gap-6 group">
                   <div className="w-24 aspect-[3/4] flex-shrink-0 bg-gray-50 overflow-hidden relative">
                     <img

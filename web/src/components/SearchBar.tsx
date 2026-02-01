@@ -194,7 +194,7 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
                         Categories
                       </h3>
                     </div>
-                    {categoryResults.map((category) => {
+                    {categoryResults.filter(c => c && c._id).map((category) => {
                       const fallbackImages: Record<string, string> = {
                         'Bracelets': 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&q=80&w=800',
                         'Necklaces': 'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&q=80&w=800',
@@ -236,7 +236,7 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
                         Products ({searchMetadata.total})
                       </h3>
                     </div>
-                    {searchResults.map((product) => (
+                    {searchResults.filter(p => p && p._id).map((product) => (
                       <button
                         key={product._id}
                         onClick={() => handleProductClick(product._id)}
