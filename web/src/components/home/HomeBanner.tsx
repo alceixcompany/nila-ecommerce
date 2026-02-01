@@ -20,7 +20,7 @@ export default function HomeBanner() {
 
     return (
         <section className="w-full flex flex-col gap-[2px]">
-            {banners.map((banner, index) => (
+            {banners.filter(b => b && b._id).map((banner, index) => (
                 <div key={banner._id} className="relative w-full h-[400px] md:h-[500px] overflow-hidden group">
                     {/* Background Image */}
                     <div className="absolute inset-0">
