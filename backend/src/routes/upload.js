@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const sharp = require('sharp');
 const mongoose = require('mongoose');
-const { GridFSBucket } = require('mongodb');
+const GridFSBucket = mongoose.mongo.GridFSBucket;
 const { protect, authorize } = require('../middleware/auth');
 
 // POST routes require authentication and admin role
@@ -65,12 +65,20 @@ router.post('/image',
     console.log('DEBUG: Inside async handler');
     try {
       if (!req.file) {
-        console.log('No file in request (after multer)');
+        console.log('No file in request (after multer check)');
         return res.status(400).json({
           success: false,
           message: 'No image file provided',
         });
       }
+
+      console.log('File received:', {
+        originalname: req.file.originalname,
+        mimetype: req.file.mimetype,
+        size: req.file.size,
+        hasBuffer: !!req.file.buffer,
+        bufferLength: req.file.buffer ? req.file.buffer.length : 0
+      });
 
       // Check DB connection
       if (!mongoose.connection.db) {
@@ -83,6 +91,7 @@ router.post('/image',
 
       // Initialize GridFS bucket
       console.log('Initializing GridFS bucket');
+      // Use the native mongo driver db instance
       const bucket = new GridFSBucket(mongoose.connection.db, {
         bucketName: 'uploads',
       });
