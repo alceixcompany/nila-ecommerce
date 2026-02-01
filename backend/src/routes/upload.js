@@ -26,14 +26,28 @@ const upload = multer({
   },
 });
 
+// Custom upload middleware to catch errors
+const uploadMiddleware = (req, res, next) => {
+  upload.single('image')(req, res, (err) => {
+    if (err) {
+      console.error('Multer error:', err);
+      return res.status(400).json({
+        success: false,
+        message: err.message || 'File upload error',
+      });
+    }
+    next();
+  });
+};
+
 // @route   POST /api/upload/image
 // @desc    Upload and compress image to GridFS
 // @access  Private/Admin
-router.post('/image', protect, authorize('admin'), upload.single('image'), async (req, res) => {
+router.post('/image', protect, authorize('admin'), uploadMiddleware, async (req, res) => {
   console.log('Upload image request received');
   try {
     if (!req.file) {
-      console.log('No file in request');
+      console.log('No file in request (after multer)');
       return res.status(400).json({
         success: false,
         message: 'No image file provided',
