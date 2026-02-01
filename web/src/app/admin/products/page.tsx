@@ -90,7 +90,7 @@ export default function ProductsPage() {
               className="w-full md:w-48 pl-9 pr-8 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:border-black transition-colors appearance-none cursor-pointer hover:border-gray-300"
             >
               <option value="all">All Categories</option>
-              {categories.map((category) => (
+              {categories.filter(cat => cat && cat._id).map((category) => (
                 <option key={category._id} value={category._id}>
                   {category.name}
                 </option>
@@ -157,7 +157,7 @@ export default function ProductsPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {displayProducts.map((product) => (
+                {displayProducts.filter(p => p && p._id).map((product) => (
                   <tr key={product._id} className="hover:bg-gray-50/50 transition-colors group">
                     <td className="px-6 py-4">
                       <div className="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden border border-gray-200">

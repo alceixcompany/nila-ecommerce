@@ -283,7 +283,7 @@ export default function CategoriesPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {categories.map((category) => (
+                {categories.filter(cat => cat && cat._id).map((category) => (
                   <tr key={category._id} className="hover:bg-gray-50/50 transition-colors group">
                     <td className="px-6 py-4">
                       <div className="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden border border-gray-200">
