@@ -54,6 +54,11 @@ const nextConfig: NextConfig = {
         port: '5001',
         pathname: '/api/upload/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'nila-ecommerce.onrender.com',
+        pathname: '/api/upload/**',
+      },
     ],
   },
 };
