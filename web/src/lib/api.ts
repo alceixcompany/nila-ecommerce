@@ -31,7 +31,7 @@ api.interceptors.response.use((response) => {
       }
 
       if (Array.isArray(obj)) {
-        return obj.map(fixImageUrl);
+        return obj.filter(item => item !== null && item !== undefined).map(fixImageUrl);
       }
 
       if (typeof obj === 'object') {
