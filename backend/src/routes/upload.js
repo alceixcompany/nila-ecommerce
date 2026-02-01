@@ -30,15 +30,27 @@ const upload = multer({
 // @desc    Upload and compress image to GridFS
 // @access  Private/Admin
 router.post('/image', protect, authorize('admin'), upload.single('image'), async (req, res) => {
+  console.log('Upload image request received');
   try {
     if (!req.file) {
+      console.log('No file in request');
       return res.status(400).json({
         success: false,
         message: 'No image file provided',
       });
     }
 
+    // Check DB connection
+    if (!mongoose.connection.db) {
+      console.error('Database connection not established');
+      return res.status(500).json({
+        success: false,
+        message: 'Database connection not ready',
+      });
+    }
+
     // Initialize GridFS bucket
+    console.log('Initializing GridFS bucket');
     const bucket = new GridFSBucket(mongoose.connection.db, {
       bucketName: 'uploads',
     });
