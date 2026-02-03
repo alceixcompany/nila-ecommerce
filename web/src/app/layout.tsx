@@ -25,6 +25,11 @@ const playfairDisplay = Playfair_Display({
 export const metadata: Metadata = {
   title: "Ocean Gem - Exquisite Jewelry Collection",
   description: "Discover timeless treasures and exquisite jewelry at Ocean Gem. Handcrafted pieces for your most special moments.",
+  icons: {
+    icon: '/image/icon_gem.png',
+    shortcut: '/image/icon_gem.png',
+    apple: '/image/icon_gem.png',
+  },
 };
 
 export default function RootLayout({

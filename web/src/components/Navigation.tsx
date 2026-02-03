@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { FiSearch, FiHeart, FiShoppingBag, FiUser, FiMenu, FiX } from 'react-icons/fi';
 import CartSidebar from './CartSidebar';
@@ -92,11 +93,14 @@ export default function Navigation() {
               {/* Center: Logo */}
               <div className="absolute left-1/2 -translate-x-1/2 scale-90 md:scale-100 transition-transform duration-500">
                 <Link href="/" className="flex flex-col items-center group">
-                  <div className="flex items-center gap-2 transition-spacing duration-500 group-hover:gap-3">
-                    <span className="text-2xl md:text-5xl font-light tracking-[0.15em] md:tracking-[0.25em] text-gray-900 serif">OCEAN</span>
-                    <div className="relative flex flex-col items-center">
-                      <span className="text-2xl md:text-5xl font-light tracking-[0.15em] md:tracking-[0.25em] text-gray-900 serif">GEM</span>
-                    </div>
+                  <div className="relative w-40 h-20 md:w-56 md:h-28 lg:w-64 lg:h-32 transition-transform duration-500 hover:scale-105">
+                    <Image
+                      src="/image/logo_gem.png"
+                      alt="Ocean Gem"
+                      fill
+                      className="object-contain"
+                      priority
+                    />
                   </div>
                   <div className="flex items-center gap-2 mt-2 px-1 relative">
                     <div className="h-[0.5px] w-8 bg-blue-100 group-hover:w-12 transition-all duration-700"></div>
