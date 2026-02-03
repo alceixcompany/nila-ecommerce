@@ -3,6 +3,8 @@ const router = express.Router();
 const Order = require('../models/Order');
 const Coupon = require('../models/Coupon');
 const { protect, authorize } = require('../middleware/auth');
+const { client } = require('../config/paypal');
+const checkoutNodeJssdk = require('@paypal/checkout-server-sdk');
 
 // @route   POST /api/orders
 // @desc    Create new order
@@ -84,13 +86,34 @@ router.put('/:id/pay', protect, async (req, res) => {
         const order = await Order.findById(req.params.id);
 
         if (order) {
+            // VERIFY PAYMENT WITH PAYPAL
+            const paypalOrderId = req.body.id;
+
+            // Get the order from PayPal
+            const request = new checkoutNodeJssdk.orders.OrdersGetRequest(paypalOrderId);
+            const paypalOrder = await client().execute(request);
+
+            const paypalData = paypalOrder.result;
+
+            // Check if it's actually paid
+            if (paypalData.status !== 'COMPLETED' && paypalData.status !== 'APPROVED') {
+                return res.status(400).json({
+                    success: false,
+                    message: `PayPal payment not completed. Status: ${paypalData.status}`
+                });
+            }
+
+            // Optional: Check if amount matches
+            // const paidAmount = paypalData.purchase_units[0].amount.value;
+            // if (parseFloat(paidAmount) !== order.totalPrice) { ... }
+
             order.isPaid = true;
             order.paidAt = Date.now();
             order.paymentResult = {
-                id: req.body.id,
-                status: req.body.status,
-                update_time: req.body.update_time,
-                email_address: req.body.email_address || (req.body.payer && req.body.payer.email_address),
+                id: paypalData.id,
+                status: paypalData.status,
+                update_time: paypalData.update_time,
+                email_address: paypalData.payer.email_address,
             };
 
             const updatedOrder = await order.save();
@@ -110,7 +133,7 @@ router.put('/:id/pay', protect, async (req, res) => {
         console.error('Update order pay error:', error);
         res.status(500).json({
             success: false,
-            message: 'Server error',
+            message: 'Payment verification failed: ' + error.message,
         });
     }
 });
