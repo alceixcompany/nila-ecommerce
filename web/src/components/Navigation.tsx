@@ -162,8 +162,8 @@ export default function Navigation() {
             <Link href="/about" className="text-4xl font-light tracking-wide text-gray-900 border-b border-gray-50 pb-4" onClick={() => setIsMenuOpen(false)}>Our Story</Link>
             <Link href="/collections" className="text-4xl font-light tracking-wide text-gray-900 border-b border-gray-50 pb-4" onClick={() => setIsMenuOpen(false)}>Collections</Link>
             <Link href="/journal" className="text-4xl font-light tracking-wide text-gray-900 border-b border-gray-50 pb-4" onClick={() => setIsMenuOpen(false)}>Journal</Link>
-            <Link href="/#craft" className="text-4xl font-light tracking-wide text-gray-900 border-b border-gray-50 pb-4" onClick={() => setIsMenuOpen(false)}>Our Craft</Link>
-            <Link href="/#gift" className="text-4xl font-light tracking-wide text-gray-900 border-b border-gray-50 pb-4" onClick={() => setIsMenuOpen(false)}>Gift Guide</Link>
+
+            <Link href="/products?tag=best-seller" className="text-4xl font-light tracking-wide text-gray-900 border-b border-gray-50 pb-4" onClick={() => setIsMenuOpen(false)}>Gift Guide</Link>
           </div>
 
           <div className="mt-auto pt-10 border-t border-gray-100 flex flex-col space-y-4">

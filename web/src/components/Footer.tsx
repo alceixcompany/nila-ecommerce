@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -22,8 +23,13 @@ export default function Footer() {
 
         {/* Top Section: Logo & Nav */}
         <div className="flex flex-col items-center mb-20 text-center">
-          <Link href="/" className="text-3xl md:text-4xl font-light tracking-[0.2em] uppercase text-gray-900 mb-10 hover:opacity-70 transition-opacity">
-            Ocean Gem
+          <Link href="/" className="mb-10 hover:opacity-70 transition-opacity block relative w-48 h-24">
+            <Image
+              src="/image/logo_gem.png"
+              alt="Ocean Gem"
+              fill
+              className="object-contain"
+            />
           </Link>
 
           <nav className="flex flex-wrap justify-center gap-x-12 gap-y-4 mb-12">
