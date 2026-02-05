@@ -68,7 +68,7 @@ export default function Navigation() {
       <header className="w-full relative z-50">
         {/* Top Banner */}
         <div className="w-full bg-[#fcfcfc] py-2 text-center border-b border-gray-100/50">
-          <span className="text-[9px] md:text-[10px] tracking-[0.25em] uppercase font-medium text-gray-400">
+          <span className="text-[9px] md:text-[10px] tracking-[0.3em] font-normal uppercase text-gray-400">
             FAMILY-OWNED AND OPERATED IN NEW YORK CITY
           </span>
         </div>
@@ -86,7 +86,7 @@ export default function Navigation() {
                     <span className="w-5 h-[1px] bg-gray-900 transition-all group-hover:w-7"></span>
                     <span className="w-7 h-[1px] bg-gray-900"></span>
                   </div>
-                  <span className="text-[10px] tracking-[0.2em] font-medium hidden md:block group-hover:text-gray-600 transition-colors uppercase">Menu</span>
+                  <span className="text-[10px] tracking-[0.3em] font-normal hidden md:block group-hover:text-gray-600 transition-colors uppercase">Menu</span>
                 </button>
               </div>
 
@@ -104,7 +104,7 @@ export default function Navigation() {
                   </div>
                   <div className="flex items-center gap-2 mt-2 px-1 relative">
                     <div className="h-[0.5px] w-8 bg-blue-100 group-hover:w-12 transition-all duration-700"></div>
-                    <span className="text-[8px] md:text-[9px] tracking-[0.8em] uppercase font-light text-gray-400 group-hover:text-cyan-800 transition-colors duration-700">EXQUISITE JEWELRY</span>
+                    <span className="text-[8px] md:text-[9px] tracking-[0.7em] uppercase font-light text-gray-400 group-hover:text-cyan-800 transition-colors duration-700">EXQUISITE JEWELRY</span>
                     <div className="h-[0.5px] w-8 bg-blue-100 group-hover:w-12 transition-all duration-700"></div>
                   </div>
                 </Link>
@@ -129,7 +129,7 @@ export default function Navigation() {
                 >
                   <FiShoppingBag size={22} strokeWidth={1} />
                   {mounted && getTotalItems() > 0 && (
-                    <span className="absolute -top-1 -right-2 bg-gray-900 text-white text-[8px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
+                    <span className="absolute -top-1 -right-2 bg-gray-900 text-white text-[8px] w-4 h-4 flex items-center justify-center rounded-full font-normal">
                       {getTotalItems()}
                     </span>
                   )}
@@ -140,7 +140,7 @@ export default function Navigation() {
 
           {/* Sub Header - Refined Minimal Style */}
           <div className={`w-full bg-white/50 backdrop-blur-sm border-b border-gray-50 flex items-center justify-center transition-all duration-500 ${isScrolled ? 'h-0 opacity-0 overflow-hidden py-0' : 'h-10 py-2'}`}>
-            <span className="text-[9px] md:text-[11px] font-medium tracking-[0.3em] uppercase text-gray-400 font-sans">
+            <span className="text-[9px] md:text-[10px] font-normal tracking-[0.4em] uppercase text-gray-400">
               Exquisite Treasures From The Deep
             </span>
           </div>
@@ -152,23 +152,23 @@ export default function Navigation() {
       <div className={`fixed inset-0 z-[100] bg-white transition-all duration-700 ease-in-out ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
         <div className="flex flex-col h-full px-8 py-10">
           <div className="flex justify-between items-center mb-16">
-            <span className="text-[10px] tracking-[0.3em] font-medium uppercase text-gray-400">Discover Tilo</span>
+            <span className="text-[10px] tracking-[0.3em] font-normal uppercase text-gray-400">Discover Tilo</span>
             <button onClick={() => setIsMenuOpen(false)} className="text-gray-900 p-2">
               <FiX size={32} strokeWidth={1} />
             </button>
           </div>
 
           <div className="flex flex-col space-y-8">
-            <Link href="/about" className="text-4xl font-light tracking-wide text-gray-900 border-b border-gray-50 pb-4" onClick={() => setIsMenuOpen(false)}>Our Story</Link>
-            <Link href="/collections" className="text-4xl font-light tracking-wide text-gray-900 border-b border-gray-50 pb-4" onClick={() => setIsMenuOpen(false)}>Collections</Link>
-            <Link href="/journal" className="text-4xl font-light tracking-wide text-gray-900 border-b border-gray-50 pb-4" onClick={() => setIsMenuOpen(false)}>Journal</Link>
+            <Link href="/about" className="text-3xl md:text-5xl font-light serif tracking-wide text-gray-900 border-b border-gray-50 pb-6 hover:translate-x-2 transition-transform duration-500" onClick={() => setIsMenuOpen(false)}>Our Story</Link>
+            <Link href="/collections" className="text-3xl md:text-5xl font-light serif tracking-wide text-gray-900 border-b border-gray-50 pb-6 hover:translate-x-2 transition-transform duration-500" onClick={() => setIsMenuOpen(false)}>Collections</Link>
+            <Link href="/journal" className="text-3xl md:text-5xl font-light serif tracking-wide text-gray-900 border-b border-gray-50 pb-6 hover:translate-x-2 transition-transform duration-500" onClick={() => setIsMenuOpen(false)}>Journal</Link>
 
-            <Link href="/products?tag=best-seller" className="text-4xl font-light tracking-wide text-gray-900 border-b border-gray-50 pb-4" onClick={() => setIsMenuOpen(false)}>Gift Guide</Link>
+            <Link href="/products?tag=best-seller" className="text-3xl md:text-5xl font-light serif tracking-wide text-gray-900 border-b border-gray-50 pb-6 hover:translate-x-2 transition-transform duration-500" onClick={() => setIsMenuOpen(false)}>Gift Guide</Link>
           </div>
 
           <div className="mt-auto pt-10 border-t border-gray-100 flex flex-col space-y-4">
-            <Link href="/login" className="text-xs tracking-[0.3em] uppercase font-bold text-gray-900" onClick={() => setIsMenuOpen(false)}>Account</Link>
-            <Link href="/contact" className="text-xs tracking-[0.3em] uppercase font-bold text-gray-900" onClick={() => setIsMenuOpen(false)}>Contact Us</Link>
+            <Link href="/login" className="text-[10px] tracking-[0.3em] uppercase font-normal text-gray-500 hover:text-gray-900 transition-colors" onClick={() => setIsMenuOpen(false)}>Account</Link>
+            <Link href="/contact" className="text-[10px] tracking-[0.3em] uppercase font-normal text-gray-500 hover:text-gray-900 transition-colors" onClick={() => setIsMenuOpen(false)}>Contact Us</Link>
           </div>
         </div>
       </div>

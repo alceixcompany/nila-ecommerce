@@ -23,7 +23,6 @@ html {
 /* Serif font class */
 .serif {
   font-family: var(--font-playfair), Georgia, 'Times New Roman', serif;
-  font-weight: 400;
 }
 
 /* Premium blur effect */

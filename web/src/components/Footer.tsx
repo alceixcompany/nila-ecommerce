@@ -43,7 +43,7 @@ export default function Footer() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-xs font-bold uppercase tracking-[0.15em] text-gray-500 hover:text-black transition-colors"
+                className="text-[10px] font-normal uppercase tracking-[0.25em] text-gray-500 hover:text-black transition-colors"
               >
                 {link.name}
               </Link>
@@ -60,7 +60,7 @@ export default function Footer() {
             </p>
             {subscribed ? (
               <div className="bg-gray-50 py-4 px-6 rounded-sm border border-[#C5A059]/10 animate-in fade-in zoom-in-95 duration-700">
-                <p className="text-[#C5A059] text-[10px] font-bold uppercase tracking-[0.3em]">
+                <p className="text-[#C5A059] text-[10px] font-normal uppercase tracking-[0.3em]">
                   Thank you for joining.
                 </p>
                 <p className="text-gray-400 text-[10px] mt-2 italic">
@@ -77,7 +77,7 @@ export default function Footer() {
                   className="flex-1 bg-transparent text-sm text-black placeholder-gray-400 focus:outline-none"
                   required
                 />
-                <button type="submit" className="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] hover:text-black transition-colors">
+                <button type="submit" className="text-[10px] font-normal uppercase tracking-widest text-[#C5A059] hover:text-black transition-colors">
                   Subscribe
                 </button>
               </form>
@@ -89,7 +89,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-gray-100 pt-16 pb-16 text-center md:text-left">
           {/* Column 1: Client Care */}
           <div className="flex flex-col items-center md:items-start">
-            <h5 className="font-bold uppercase tracking-[0.2em] text-[10px] mb-6 text-gray-900">Client Care</h5>
+            <h5 className="font-normal uppercase tracking-[0.3em] text-[10px] mb-6 text-gray-900">Client Care</h5>
             <ul className="space-y-3 text-xs text-gray-500 font-light tracking-wide">
               <li><Link href="/terms-of-service#shipping" className="hover:text-black transition-colors">Shipping & Returns</Link></li>
               <li><Link href="/terms-of-service#faq" className="hover:text-black transition-colors">FAQ</Link></li>
@@ -100,7 +100,7 @@ export default function Footer() {
 
           {/* Column 2: Social */}
           <div className="flex flex-col items-center">
-            <h5 className="font-bold uppercase tracking-[0.2em] text-[10px] mb-6 text-gray-900">Social</h5>
+            <h5 className="font-normal uppercase tracking-[0.3em] text-[10px] mb-6 text-gray-900">Social</h5>
             <ul className="flex gap-8">
               {[
                 { name: 'Instagram', url: '#' },
@@ -118,8 +118,8 @@ export default function Footer() {
 
           {/* Column 3: Legal */}
           <div className="flex flex-col items-center md:items-end">
-            <h5 className="font-bold uppercase tracking-[0.2em] text-[10px] mb-6 text-gray-900">Legal</h5>
-            <ul className="space-y-3 text-xs text-gray-500 font-bold md:text-right">
+            <h5 className="font-normal uppercase tracking-[0.3em] text-[10px] mb-6 text-gray-900">Legal</h5>
+            <ul className="space-y-3 text-xs text-gray-500 font-normal md:text-right">
               <li><Link href="/privacy-policy" className="hover:text-black transition-colors">Privacy Policy</Link></li>
               <li><Link href="/terms-of-service" className="hover:text-black transition-colors">Terms of Service</Link></li>
               <li><Link href="/accessibility" className="hover:text-black transition-colors">Accessibility</Link></li>
@@ -128,7 +128,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-100 text-[10px] text-gray-400 uppercase tracking-[0.2em]">
+        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-100 text-[9px] text-gray-400 uppercase tracking-[0.3em] font-light">
           <p>&copy; {new Date().getFullYear()} Ocean Gem. All rights reserved.</p>
           <div className="mt-4 md:mt-0">
             Designed with <span className="text-[#C5A059]">♥</span> for Luxury

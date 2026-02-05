@@ -38,7 +38,7 @@ export default function CollectionsSection() {
             <div className="max-w-[1440px] mx-auto px-6">
                 {/* Header */}
                 <div className="flex flex-col items-center mb-16 space-y-4">
-                    <h3 className="text-[10px] md:text-sm tracking-[0.3em] font-medium text-gray-500 uppercase text-center max-w-2xl px-4">
+                    <h3 className="text-[10px] md:text-sm tracking-[0.3em] font-normal text-gray-500 uppercase text-center max-w-2xl px-4">
                         MODERN AND TRENDY LOOKS FOR EVERYDAY AND YOUR SPECIAL OCCASIONS
                     </h3>
                     <div className="w-12 h-[1px] bg-gray-300"></div>
@@ -71,7 +71,7 @@ export default function CollectionsSection() {
                                     {/* Content Overlay */}
                                     <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6">
                                         {/* Product Count (Top) */}
-                                        <span className="text-[10px] md:text-xs tracking-[0.2em] font-medium uppercase mb-auto pt-4 opacity-0 group-hover:opacity-100 translate-y-[-10px] group-hover:translate-y-0 transition-all duration-700">
+                                        <span className="text-[10px] md:text-xs tracking-[0.2em] font-normal uppercase mb-auto pt-4 opacity-0 group-hover:opacity-100 translate-y-[-10px] group-hover:translate-y-0 transition-all duration-700">
                                             {category.productCount} PRODUCTS
                                         </span>
 
@@ -83,7 +83,7 @@ export default function CollectionsSection() {
                                         {/* View Collection (Bottom) */}
                                         <Link
                                             href={`/categories/${category.slug}`}
-                                            className="mt-auto pb-4 flex items-center gap-2 text-[10px] md:text-xs tracking-[0.2em] uppercase font-medium opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-700"
+                                            className="mt-auto pb-4 flex items-center gap-2 text-[10px] md:text-xs tracking-[0.2em] uppercase font-normal opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-700"
                                         >
                                             View the collection
                                             <FiChevronRight className="group-hover:translate-x-1 transition-transform" />

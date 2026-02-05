@@ -40,7 +40,7 @@ export default function AboutUsSection() {
   return (
     <section className="" >
       <div className="w-[80%] mx-auto px-6 bg-[#F7F6F0] rounded-lg p-24">
-        {/* Top Section - Image and Text */} 
+        {/* Top Section - Image and Text */}
         <div className="grid md:grid-cols-2 gap-12 mb-16 items-center">
           {/* Left Side - Image */}
           <div className="relative w-full h-[400px]  rounded-lg overflow-hidden flex items-center justify-center">
@@ -53,10 +53,10 @@ export default function AboutUsSection() {
 
           {/* Right Side - Text Content */}
           <div className="flex flex-col justify-center">
-            <span className="text-zinc-500 text-xs font-medium uppercase tracking-wide mb-3">
+            <span className="text-zinc-500 text-xs font-normal uppercase tracking-wide mb-3">
               About Us
             </span>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-zinc-900 mb-5 leading-tight tracking-tight">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal text-zinc-900 mb-5 leading-tight tracking-tight">
               Furniture with Heart,
               <br />
               Made for Living
@@ -74,7 +74,7 @@ export default function AboutUsSection() {
               <div className="flex justify-center mb-4 text-zinc-900">
                 {feature.icon}
               </div>
-              <h3 className="text-zinc-900 font-semibold text-base">
+              <h3 className="text-zinc-900 font-normal text-base">
                 {feature.title}
               </h3>
             </div>
