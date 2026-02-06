@@ -159,11 +159,10 @@ export default function Navigation() {
           </div>
 
           <div className="flex flex-col space-y-8">
-            <Link href="/about" className="text-3xl md:text-5xl font-light serif tracking-wide text-gray-900 border-b border-gray-50 pb-6 hover:translate-x-2 transition-transform duration-500" onClick={() => setIsMenuOpen(false)}>Our Story</Link>
-            <Link href="/collections" className="text-3xl md:text-5xl font-light serif tracking-wide text-gray-900 border-b border-gray-50 pb-6 hover:translate-x-2 transition-transform duration-500" onClick={() => setIsMenuOpen(false)}>Collections</Link>
-            <Link href="/journal" className="text-3xl md:text-5xl font-light serif tracking-wide text-gray-900 border-b border-gray-50 pb-6 hover:translate-x-2 transition-transform duration-500" onClick={() => setIsMenuOpen(false)}>Journal</Link>
-
-            <Link href="/products?tag=best-seller" className="text-3xl md:text-5xl font-light serif tracking-wide text-gray-900 border-b border-gray-50 pb-6 hover:translate-x-2 transition-transform duration-500" onClick={() => setIsMenuOpen(false)}>Gift Guide</Link>
+            <Link href="/about" className="text-3xl md:text-5xl italic serif font-light tracking-wide text-zinc-500 hover:text-zinc-800 hover:translate-x-[4px] transition-all duration-700" onClick={() => setIsMenuOpen(false)}>Our Story</Link>
+            <Link href="/collections" className="text-3xl md:text-5xl italic serif font-light tracking-wide text-zinc-500 hover:text-zinc-800 hover:translate-x-[4px] transition-all duration-700" onClick={() => setIsMenuOpen(false)}>Collections</Link>
+            <Link href="/journal" className="text-3xl md:text-5xl italic serif font-light tracking-wide text-zinc-500 hover:text-zinc-800 hover:translate-x-[4px] transition-all duration-700" onClick={() => setIsMenuOpen(false)}>Journal</Link>
+            <Link href="/products?tag=best-seller" className="text-3xl md:text-5xl italic serif font-light tracking-wide text-zinc-500 hover:text-zinc-800 hover:translate-x-[4px] transition-all duration-700" onClick={() => setIsMenuOpen(false)}>Gift Guide</Link>
           </div>
 
           <div className="mt-auto pt-10 border-t border-gray-100 flex flex-col space-y-4">
