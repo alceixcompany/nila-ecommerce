@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiMapPin, FiPhone, FiMail, FiClock } from 'react-icons/fi';
+import Image from 'next/image';
+import { FiMapPin, FiPhone, FiMail, FiClock, FiShare2 } from 'react-icons/fi';
 import api from '@/lib/api';
 
 export default function ContactPage() {
@@ -75,7 +76,8 @@ export default function ContactPage() {
                             </p>
                         </motion.div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8 mb-12">
+                            {/* LA Location */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -86,14 +88,27 @@ export default function ContactPage() {
                                 <div className="text-[#C5A059] mb-2">
                                     <FiMapPin size={24} strokeWidth={1} />
                                 </div>
-                                <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-gray-900">Address</h3>
-                                <p className="text-sm text-gray-500 font-light">
-                                    123 Fifth Avenue<br />
-                                    New York, NY 10160<br />
-                                    United States
-                                </p>
+                                <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-gray-900 flex items-center gap-2">
+                                    Los Angeles <span className="w-1 h-1 bg-[#C5A059] rounded-full"></span> Atelier
+                                </h3>
+                                <div className="flex flex-col md:flex-row gap-6">
+                                    <p className="text-sm text-gray-500 font-light flex-1">
+                                        608 S Hill St<br />
+                                        LA, CA 90014<br />
+                                        United States
+                                    </p>
+                                    <div className="w-20 h-20 relative bg-gray-50 p-1 border border-gray-100 flex-shrink-0">
+                                        <Image
+                                            src="/image/qr_for_england.jpeg"
+                                            alt="LA Location QR"
+                                            fill
+                                            className="object-contain"
+                                        />
+                                    </div>
+                                </div>
                             </motion.div>
 
+                            {/* Istanbul Location */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -102,15 +117,29 @@ export default function ContactPage() {
                                 className="space-y-4"
                             >
                                 <div className="text-[#C5A059] mb-2">
-                                    <FiPhone size={24} strokeWidth={1} />
+                                    <FiMapPin size={24} strokeWidth={1} />
                                 </div>
-                                <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-gray-900">Contact</h3>
-                                <p className="text-sm text-gray-500 font-light">
-                                    +1 (212) 555-0123<br />
-                                    concierge@oceangem.com
-                                </p>
+                                <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-gray-900 flex items-center gap-2">
+                                    Istanbul <span className="w-1 h-1 bg-[#C5A059] rounded-full"></span> Showroom
+                                </h3>
+                                <div className="flex flex-col md:flex-row gap-6">
+                                    <p className="text-sm text-gray-500 font-light flex-1">
+                                        Nuruosmaniye, Fatih<br />
+                                        Istanbul, TR<br />
+                                        Turkey
+                                    </p>
+                                    <div className="w-20 h-20 relative bg-gray-50 p-1 border border-gray-100 flex-shrink-0">
+                                        <Image
+                                            src="/image/qr_for_ist.jpeg"
+                                            alt="Istanbul Location QR"
+                                            fill
+                                            className="object-contain"
+                                        />
+                                    </div>
+                                </div>
                             </motion.div>
 
+                            {/* Contact Details */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -119,13 +148,35 @@ export default function ContactPage() {
                                 className="space-y-4"
                             >
                                 <div className="text-[#C5A059] mb-2">
-                                    <FiClock size={24} strokeWidth={1} />
+                                    <FiMail size={24} strokeWidth={1} />
                                 </div>
-                                <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-gray-900">Hours</h3>
+                                <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-gray-900">Get in Touch</h3>
                                 <p className="text-sm text-gray-500 font-light">
-                                    Mon - Sat: 10:00 AM - 7:00 PM<br />
-                                    Sunday: 12:00 PM - 6:00 PM
+                                    oceangem.us@outlook.com<br />
+                                    +1 (213) 555-0188
                                 </p>
+                            </motion.div>
+
+                            {/* WhatsApp Connect */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.4 }}
+                                className="space-y-4"
+                            >
+                                <div className="text-[#25D366] mb-2">
+                                    <FiShare2 size={24} strokeWidth={1} />
+                                </div>
+                                <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-gray-900">WhatsApp</h3>
+                                <div className="w-20 h-20 relative bg-gray-50 p-1 border border-gray-100 flex-shrink-0">
+                                    <Image
+                                        src="/image/qr_for_whatsapp.png"
+                                        alt="WhatsApp QR"
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </div>
                             </motion.div>
                         </div>
                     </div>
