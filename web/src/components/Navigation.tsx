@@ -166,7 +166,7 @@ export default function Navigation() {
           </div>
 
           <div className="mt-auto pt-10 border-t border-gray-100 flex flex-col space-y-4">
-            <Link href="/login" className="text-[10px] tracking-[0.3em] uppercase font-normal text-gray-500 hover:text-gray-900 transition-colors" onClick={() => setIsMenuOpen(false)}>Account</Link>
+            <Link href={mounted && isAuthenticated ? "/profile" : "/login"} className="text-[10px] tracking-[0.3em] uppercase font-normal text-gray-500 hover:text-gray-900 transition-colors" onClick={() => setIsMenuOpen(false)}>Account</Link>
             <Link href="/contact" className="text-[10px] tracking-[0.3em] uppercase font-normal text-gray-500 hover:text-gray-900 transition-colors" onClick={() => setIsMenuOpen(false)}>Contact Us</Link>
           </div>
         </div>
