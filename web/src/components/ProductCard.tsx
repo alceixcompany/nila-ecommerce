@@ -1,9 +1,12 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { FiPlus } from 'react-icons/fi';
+import { FiPlus, FiHeart } from 'react-icons/fi';
 import { useCart } from '@/contexts/CartContext';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { addToWishlist, removeFromWishlist } from '@/lib/slices/profileSlice';
 
 interface Product {
   _id: string;
@@ -40,6 +43,34 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
   }
 
   const { _id, name, price, discountedPrice, mainImage, image, images, category, material, isBestSeller, isNewArrival, stock } = product;
+
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { profile } = useAppSelector((state) => state.profile);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
+  const isFavorite = useMemo(() => {
+    if (!profile || !profile.wishlist) return false;
+    return profile.wishlist.some((item: any) =>
+      (typeof item === 'string' ? item === _id : item._id === _id)
+    );
+  }, [profile, _id]);
+
+  const handleToggleWishlist = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!isAuthenticated) {
+      router.push('/login');
+      return;
+    }
+
+    if (isFavorite) {
+      await dispatch(removeFromWishlist(_id));
+    } else {
+      await dispatch(addToWishlist(_id));
+    }
+  };
 
   // Prioritize mainImage, then image (fallback), then empty string
   const displayImage = mainImage || image || '';
@@ -182,14 +213,27 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
           )}
         </div>
 
-        {/* Action Button - Top Right */}
-        <button
-          onClick={handleAddToCart}
-          className="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-900 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-[#C5A059] hover:text-white z-20 shadow-md"
-          title="Add to Cart"
-        >
-          <FiPlus size={20} />
-        </button>
+        {/* Action Buttons - Top Right */}
+        <div className="absolute top-4 right-4 flex gap-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <button
+            onClick={handleToggleWishlist}
+            className={`w-10 h-10 rounded-full backdrop-blur-sm shadow-md flex items-center justify-center transition-all duration-300 border border-white/40 transform translate-y-4 group-hover:translate-y-0 ${isFavorite
+                ? 'bg-red-500 text-white border-transparent'
+                : 'bg-white/90 text-gray-900 hover:bg-gray-900 hover:text-white'
+              }`}
+            title={isFavorite ? "Remove from Wishlist" : "Add to Wishlist"}
+          >
+            <FiHeart size={18} fill={isFavorite ? 'currentColor' : 'none'} />
+          </button>
+
+          <button
+            onClick={handleAddToCart}
+            className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-900 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-[#C5A059] hover:text-white shadow-md border border-white/40"
+            title="Add to Shopping Bag"
+          >
+            <FiPlus size={20} />
+          </button>
+        </div>
 
         {/* Info Overlay - Light Glassmorphism with Hover Effect */}
         <div className="absolute bottom-4 left-4 right-4 bg-white/80 backdrop-blur-md p-5 text-center transition-all duration-500 shadow-sm border border-white/40 translate-y-2 group-hover:translate-y-0 group-hover:bg-white/95 group-hover:shadow-2xl group-hover:border-white/80 z-20">

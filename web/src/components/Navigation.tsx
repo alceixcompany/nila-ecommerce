@@ -111,12 +111,12 @@ export default function Navigation() {
               </div>
 
               {/* Right: Icons */}
-              <div className="flex items-center space-x-8">
+              <div className="flex items-center space-x-5 md:space-x-8">
                 {/* Account - added back for "premium" feel */}
                 {mounted && (
                   <Link
                     href={isAuthenticated ? "/profile" : "/login"}
-                    className="hidden md:block text-gray-900 hover:text-gray-500 transition-colors"
+                    className="text-gray-900 hover:text-gray-500 transition-all hover:scale-105 active:scale-95"
                   >
                     <FiUser size={20} strokeWidth={1} />
                   </Link>

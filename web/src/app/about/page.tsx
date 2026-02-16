@@ -84,27 +84,13 @@ export default function AboutPage() {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </motion.div>
-                            {/* Floating secondary image */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 1, delay: 0.3 }}
-                                viewport={{ once: true }}
-                                className="absolute -bottom-10 -left-10 w-48 h-48 rounded-2xl overflow-hidden shadow-2xl border-8 border-white hidden md:block"
-                            >
-                                <img
-                                    src="/image/customer/WhatsApp Image 2026-02-06 at 01.01.19.jpeg"
-                                    alt="Detail shot"
-                                    className="w-full h-full object-cover"
-                                />
-                            </motion.div>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* Video Showcase Section */}
-            <section className="w-full bg-zinc-950 py-32">
+            <section className="w-full bg-zinc-950 py-32" >
                 <div className="max-w-[1440px] mx-auto px-6 lg:px-20 text-center mb-16">
                     <motion.h2
                         initial={{ opacity: 0 }}
@@ -142,10 +128,10 @@ export default function AboutPage() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* Final Detail Section */}
-            <section className="py-32 bg-white relative overflow-hidden">
+            < section className="py-32 bg-white relative overflow-hidden" >
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -172,7 +158,7 @@ export default function AboutPage() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-0 pointer-events-none opacity-[0.03] text-[20vw] font-serif italic whitespace-nowrap select-none">
                     Exquisite
                 </div>
-            </section>
-        </div>
+            </section >
+        </div >
     );
 }
