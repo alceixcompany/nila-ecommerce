@@ -17,7 +17,7 @@ export default function AboutPage() {
                         playsInline
                         className="w-full h-full object-cover"
                     >
-                        <source src="/image/customer/WhatsApp Video 2026-02-06 at 01.01.20.mp4" type="video/mp4" />
+                        <source src="/videos/about_hero.mp4" type="video/mp4" />
                     </video>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40 z-10" />
@@ -111,7 +111,7 @@ export default function AboutPage() {
                             playsInline
                             className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
                         >
-                            <source src="/image/customer/WhatsApp Video 2026-02-06 at 01.01.19.mp4" type="video/mp4" />
+                            <source src="/videos/about_video.mp4" type="video/mp4" />
                         </video>
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/40">
                             <span className="text-white text-xs tracking-widest uppercase font-light border border-white/30 px-6 py-2">The Glow</span>

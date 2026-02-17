@@ -324,7 +324,7 @@ export default function NewProductPage() {
           <div className="p-6 grid gap-6 md:grid-cols-2">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Shipping Weight (kg) <span className="text-red-500">*</span>
+                Shipping Weight (grams) <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
@@ -338,7 +338,7 @@ export default function NewProductPage() {
                   className="w-full px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all"
                   placeholder="0.00"
                 />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">kg</span>
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">g</span>
               </div>
             </div>
 
