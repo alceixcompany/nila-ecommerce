@@ -309,36 +309,47 @@ export default function ProductDetailPage() {
 
                         {/* Description */}
                         {product.shortDescription && (
-                            <div className="mb-0 pb-6">
-                                <p className="text-gray-500 leading-relaxed text-base font-light antialiased">{product.shortDescription}</p>
+                            <div className="mb-8">
+                                <p className="text-gray-500 leading-relaxed text-base font-light antialiased whitespace-pre-line">{product.shortDescription}</p>
                             </div>
                         )}
 
-                        {/* Product Details & Features */}
-                        {(product.model || (product.features && product.features.length > 0)) && (
-                            <div className="mb-10 pb-10 border-b border-gray-100">
-                                <h3 className="text-xl font-bold text-gray-900 mb-4">Product Details</h3>
+                        {/* Product Details & Features - Accordion Style */}
+                        <div className="mb-10 border-t border-b border-gray-100 overflow-hidden">
+                            <details className="group" open>
+                                <summary className="flex items-center justify-between py-6 cursor-pointer list-none">
+                                    <h3 className="text-lg font-bold text-gray-900 uppercase tracking-[0.3em]">Product Details</h3>
+                                    <span className="transition-transform duration-300 group-open:rotate-180 text-gray-400">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+                                    </span>
+                                </summary>
+                                <div className="pb-8 animate-in fade-in slide-in-from-top-2 duration-300">
+                                    {product.features && product.features.length > 0 && (
+                                        <div className="space-y-4">
+                                            <h4 className="text-[11px] font-bold text-gray-900 tracking-[0.2em] uppercase">Features:</h4>
+                                            <ul className="space-y-4 shadow-[0_1px_0_rgba(0,0,0,0.05)] border-l-2 border-[#C5A059] pl-6 py-2">
+                                                {product.features.map((feature: any, idx: number) => (
+                                                    <li key={idx} className="flex items-start gap-3 text-gray-700 text-sm md:text-base leading-relaxed group/item">
+                                                        <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#C5A059] shrink-0"></span>
+                                                        <span className="font-light">
+                                                            <strong className="font-bold text-gray-900 uppercase tracking-wider text-[11px] mr-2">{feature.name}:</strong>
+                                                            <span className="text-gray-600">{feature.value}</span>
+                                                        </span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
 
-                                {product.features && product.features.length > 0 && (
-                                    <div className="mb-4">
-                                        <h4 className="text-lg font-bold text-gray-900 mb-2">Features:</h4>
-                                        <ul className="list-disc pl-5 space-y-1.5 text-gray-700 text-lg">
-                                            {product.features.map((feature: any, idx: number) => (
-                                                <li key={idx}>
-                                                    <strong className="font-bold text-gray-900">{feature.name}:</strong> {feature.value}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
-
-                                {product.model && (
-                                    <div className="text-lg text-gray-700 mt-4 mb-2">
-                                        <strong className="font-bold text-gray-900">Model:</strong> {product.model}
-                                    </div>
-                                )}
-                            </div>
-                        )}
+                                    {product.model && (
+                                        <div className="mt-8 pt-6 border-t border-gray-50 flex items-center gap-3">
+                                            <span className="text-[10px] font-bold text-gray-900 uppercase tracking-[0.3em]">Model:</span>
+                                            <span className="text-xs font-mono text-gray-400 bg-gray-50 px-2 py-1 rounded-sm border border-gray-100">{product.model}</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </details>
+                        </div>
 
                         {/* Order Options */}
                         <div className="space-y-8">
