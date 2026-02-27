@@ -29,6 +29,10 @@ const productSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  showProductDetails: {
+    type: Boolean,
+    default: true
+  },
   price: {
     type: Number,
     required: [true, 'Please provide a price'],

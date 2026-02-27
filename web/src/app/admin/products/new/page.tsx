@@ -31,6 +31,7 @@ export default function NewProductPage() {
     rating: '',
     isNewArrival: false,
     isBestSeller: false,
+    showProductDetails: true,
   });
 
   useEffect(() => {
@@ -100,6 +101,7 @@ export default function NewProductPage() {
         rating: formData.rating ? parseFloat(formData.rating) : undefined,
         isNewArrival: formData.isNewArrival,
         isBestSeller: formData.isBestSeller,
+        showProductDetails: formData.showProductDetails,
       };
 
       await dispatch(createProduct(productData)).unwrap();
@@ -316,11 +318,27 @@ export default function NewProductPage() {
 
         {/* Features & Model */}
         <section className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden">
-          <div className="p-6 border-b border-gray-100 flex items-center gap-3">
-            <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
-              <FiInfo size={20} />
+          <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+                <FiInfo size={20} />
+              </div>
+              <h2 className="text-lg font-bold text-gray-900">Product Details & Features</h2>
             </div>
-            <h2 className="text-lg font-bold text-gray-900">Product Details & Features</h2>
+
+            <label className="flex items-center gap-2 cursor-pointer">
+              <span className="text-sm font-medium text-gray-700">Display Section</span>
+              <div className="relative inline-flex items-center">
+                <input
+                  type="checkbox"
+                  name="showProductDetails"
+                  checked={formData.showProductDetails}
+                  onChange={handleChange}
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-black"></div>
+              </div>
+            </label>
           </div>
           <div className="p-6 space-y-6">
             <div>

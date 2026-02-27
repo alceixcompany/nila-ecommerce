@@ -26,6 +26,7 @@ interface Product {
   material?: string;
   features?: { name: string, value: string }[];
   model?: string;
+  showProductDetails?: boolean;
   createdAt: string;
   updatedAt: string;
 }
