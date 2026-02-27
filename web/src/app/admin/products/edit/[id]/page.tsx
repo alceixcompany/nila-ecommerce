@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from '@/lib/hooks';
 import { fetchProductAdmin, updateProduct, clearError, clearCurrentProduct } from '@/lib/slices/productSlice';
 import { fetchCategories } from '@/lib/slices/categorySlice';
 import MultipleImageUpload from '@/components/MultipleImageUpload';
-import { FiSave, FiX, FiInfo, FiDollarSign, FiImage, FiSettings } from 'react-icons/fi';
+import { FiSave, FiX, FiInfo, FiDollarSign, FiImage, FiSettings, FiPlus } from 'react-icons/fi';
 
 export default function EditProductPage() {
   const router = useRouter();
@@ -24,8 +24,10 @@ export default function EditProductPage() {
     discountedPrice: '',
     stock: '',
     sku: '',
+    model: '',
     mainImage: '',
     images: [] as string[],
+    features: [] as { name: string, value: string }[],
     shippingWeight: '',
     status: 'active',
     rating: '',
@@ -56,8 +58,10 @@ export default function EditProductPage() {
         discountedPrice: currentProduct.discountedPrice?.toString() || '',
         stock: currentProduct.stock?.toString() || '',
         sku: currentProduct.sku || '',
+        model: (currentProduct as any).model || '',
         mainImage: (currentProduct as any).mainImage || currentProduct.image || '',
         images: (currentProduct as any).images || [],
+        features: (currentProduct as any).features || [],
         shippingWeight: currentProduct.shippingWeight?.toString() || '',
         status: currentProduct.status || 'active',
         rating: (currentProduct as any).rating?.toString() || '',
@@ -74,6 +78,21 @@ export default function EditProductPage() {
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
     }));
+  };
+
+  const handleFeatureChange = (index: number, field: 'name' | 'value', value: string) => {
+    const newFeatures = [...formData.features];
+    newFeatures[index][field] = value;
+    setFormData(prev => ({ ...prev, features: newFeatures }));
+  };
+
+  const addFeature = () => {
+    setFormData(prev => ({ ...prev, features: [...prev.features, { name: '', value: '' }] }));
+  };
+
+  const removeFeature = (index: number) => {
+    const newFeatures = formData.features.filter((_, i) => i !== index);
+    setFormData(prev => ({ ...prev, features: newFeatures }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -104,8 +123,10 @@ export default function EditProductPage() {
         discountedPrice: formData.discountedPrice ? parseFloat(formData.discountedPrice) : undefined,
         stock: parseInt(formData.stock),
         sku: formData.sku.trim(),
+        model: formData.model.trim() || undefined,
         mainImage: formData.mainImage,
         images: formData.images || [],
+        features: formData.features.filter(f => f.name.trim() !== '' && f.value.trim() !== ''),
         shippingWeight: parseFloat(formData.shippingWeight),
         status: formData.status as 'active' | 'inactive',
         rating: formData.rating ? parseFloat(formData.rating) : undefined,
@@ -325,6 +346,83 @@ export default function EditProductPage() {
                 required
                 className="w-full px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all uppercase font-mono text-sm"
               />
+            </div>
+          </div>
+        </section>
+
+        {/* Features & Model */}
+        <section className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden">
+          <div className="p-6 border-b border-gray-100 flex items-center gap-3">
+            <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+              <FiInfo size={20} />
+            </div>
+            <h2 className="text-lg font-bold text-gray-900">Product Details & Features</h2>
+          </div>
+          <div className="p-6 space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Model Number
+              </label>
+              <input
+                type="text"
+                name="model"
+                value={formData.model}
+                onChange={handleChange}
+                className="w-full px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-mono text-sm"
+                placeholder="e.g. FRB084137Y75"
+              />
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Features List
+                </label>
+                <button
+                  type="button"
+                  onClick={addFeature}
+                  className="text-sm text-[#C5A059] hover:text-[#B8935A] font-medium flex items-center gap-1"
+                >
+                  <FiPlus size={16} /> Add Feature
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                {formData.features.map((feature, index) => (
+                  <div key={index} className="flex gap-3 items-start">
+                    <div className="flex-1">
+                      <input
+                        type="text"
+                        value={feature.name}
+                        onChange={(e) => handleFeatureChange(index, 'name', e.target.value)}
+                        placeholder="e.g. Metal"
+                        className="w-full px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <input
+                        type="text"
+                        value={feature.value}
+                        onChange={(e) => handleFeatureChange(index, 'value', e.target.value)}
+                        placeholder="e.g. 14kt Yellow Gold"
+                        className="w-full px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removeFeature(index)}
+                      className="p-2.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors border border-transparent hover:border-red-100 mt-0.5"
+                    >
+                      <FiX size={18} />
+                    </button>
+                  </div>
+                ))}
+                {formData.features.length === 0 && (
+                  <p className="text-sm text-gray-500 italic text-center py-4 bg-gray-50 rounded-lg border border-dashed border-gray-200">
+                    No features added. Click "Add Feature" to create a list.
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </section>

@@ -24,6 +24,8 @@ interface Product {
   isBestSeller?: boolean;
   isNewArrival?: boolean;
   material?: string;
+  features?: { name: string, value: string }[];
+  model?: string;
   createdAt: string;
   updatedAt: string;
 }

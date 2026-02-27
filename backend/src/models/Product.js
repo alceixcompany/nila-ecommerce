@@ -15,6 +15,20 @@ const productSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  features: [{
+    name: {
+      type: String,
+      trim: true
+    },
+    value: {
+      type: String,
+      trim: true
+    }
+  }],
+  model: {
+    type: String,
+    trim: true
+  },
   price: {
     type: Number,
     required: [true, 'Please provide a price'],

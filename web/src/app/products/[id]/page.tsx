@@ -309,8 +309,34 @@ export default function ProductDetailPage() {
 
                         {/* Description */}
                         {product.shortDescription && (
-                            <div className="mb-10 pb-10 border-b border-gray-100">
+                            <div className="mb-0 pb-6">
                                 <p className="text-gray-500 leading-relaxed text-base font-light antialiased">{product.shortDescription}</p>
+                            </div>
+                        )}
+
+                        {/* Product Details & Features */}
+                        {(product.model || (product.features && product.features.length > 0)) && (
+                            <div className="mb-10 pb-10 border-b border-gray-100">
+                                <h3 className="text-xl font-bold text-gray-900 mb-4">Product Details</h3>
+
+                                {product.features && product.features.length > 0 && (
+                                    <div className="mb-4">
+                                        <h4 className="text-lg font-bold text-gray-900 mb-2">Features:</h4>
+                                        <ul className="list-disc pl-5 space-y-1.5 text-gray-700 text-lg">
+                                            {product.features.map((feature: any, idx: number) => (
+                                                <li key={idx}>
+                                                    <strong className="font-bold text-gray-900">{feature.name}:</strong> {feature.value}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                {product.model && (
+                                    <div className="text-lg text-gray-700 mt-4 mb-2">
+                                        <strong className="font-bold text-gray-900">Model:</strong> {product.model}
+                                    </div>
+                                )}
                             </div>
                         )}
 
