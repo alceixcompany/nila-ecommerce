@@ -6,6 +6,7 @@ import Navigation from "@/components/Navigation";
 import ConditionalFooter from "@/components/ConditionalFooter";
 import { CartProvider } from "@/contexts/CartContext";
 import { Providers } from "./providers";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -52,6 +53,7 @@ export default function RootLayout({
             <ConditionalFooter />
           </CartProvider>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
